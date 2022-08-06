@@ -40,8 +40,10 @@ const CalendarWrapper = () => {
       <Inputs>
         <div>출생일: <ReactDatePicker onChange={setBirthday} value={birthDay}/></div>
         <div>
-          기대수명:
+          기대수명:{' '}
           <input
+            className="react-date-picker__wrapper"
+            style={{display: 'inline-block', height: '25px', fontSize: '16px'}}
             type={"number"}
             min={50}
             max={120}
@@ -49,7 +51,16 @@ const CalendarWrapper = () => {
             onChange={onChangeMaxAge}
           /> Year
         </div>
-        <div>지나온 삶: {Number(diffWeek / (maxAge * 52) * 100).toFixed(2)} %</div>
+        <div>
+          지나온 삶:
+          <input
+            className="react-date-picker__wrapper"
+            style={{display: 'inline-block', width: '50px', height: '25px', fontSize: '16px'}}
+            value={`${Number(diffWeek / (maxAge * 52) * 100).toFixed(2)}`}
+            disabled
+          />
+          {' '}%
+        </div>
       </Inputs>
       <ReactTooltip scrollHide/>
       <Body degreeX={degreeX} degreeY={degreeY}>
@@ -90,7 +101,7 @@ const Wrapper = styled.div`
 const Inputs = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 100px;
+  padding: 0 40px;
   margin: 20px 0;
 `;
 
