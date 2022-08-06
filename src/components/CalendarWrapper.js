@@ -57,7 +57,7 @@ const CalendarWrapper = () => {
           /> Year
         </div>
         <div>
-          One's life:
+          Ratio:
           <input
             className="react-date-picker__wrapper"
             style={{display: 'inline-block', width: '50px', height: '25px', fontSize: '16px'}}
