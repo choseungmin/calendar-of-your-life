@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import Dot from "./Dot";
 import moment from "moment";
-import ReactTooltip from "react-tooltip";
 import ReactDatePicker from "react-date-picker"
 import _ from 'lodash';
 
@@ -23,24 +22,30 @@ const CalendarWrapper = () => {
 
   const onChangeSelectedDay = ([year, week]) => {
     const [x, y] = [
-      (year - 50) / 5,
+      (year - (maxAge / 2)) / 5,
       (week - 26) / 2
     ];
 
     setDegreeX(x)
-    setDegreeY(y)
+    setDegreeY(-y)
   };
 
   const onChangeMaxAge = _.throttle((e) => {
+    const {value} = e.target;
+
+    if (value < 50 || value > 120) {
+      return;
+    }
+
     setMaxAge(e.target.value)
   }, 100);
 
   return (
     <Wrapper>
       <Inputs>
-        <div>출생일: <ReactDatePicker onChange={setBirthday} value={birthDay}/></div>
+        <div>Your Birthday: <ReactDatePicker onChange={setBirthday} value={birthDay}/></div>
         <div>
-          기대수명:{' '}
+          Life expectancy:{' '}
           <input
             className="react-date-picker__wrapper"
             style={{display: 'inline-block', height: '25px', fontSize: '16px'}}
@@ -52,7 +57,7 @@ const CalendarWrapper = () => {
           /> Year
         </div>
         <div>
-          지나온 삶:
+          One's life:
           <input
             className="react-date-picker__wrapper"
             style={{display: 'inline-block', width: '50px', height: '25px', fontSize: '16px'}}
@@ -62,27 +67,33 @@ const CalendarWrapper = () => {
           {' '}%
         </div>
       </Inputs>
-      <ReactTooltip scrollHide/>
+      {/*<ReactTooltip scrollHide/>*/}
       <Body degreeX={degreeX} degreeY={degreeY}>
-        {years.map((year, index) => {
-          return (
-            <YearWrapper key={index}>
-              <Year>{year + 1} </Year>
-              {weeks.map((week, index) => {
-                const ageWeeks = year * 52 + week;
-                return (
-                  <Dot
-                    key={index}
-                    year={year}
-                    week={week}
-                    isBefore={ageWeeks < diffWeek}
-                    onChangeSelectedDay={onChangeSelectedDay}
-                  />
-                )
-              })}
-            </YearWrapper>
-          )
-        })}
+        <Top/>
+        <Left/>
+        <Front>
+          {years.map((year, index) => {
+            return (
+              <YearWrapper key={index}>
+                <Year>{year + 1} </Year>
+                {weeks.map((week, index) => {
+                  const ageWeeks = year * 52 + week;
+                  return (
+                    <Dot
+                      key={index}
+                      year={year}
+                      week={week}
+                      isBefore={ageWeeks < diffWeek}
+                      onChangeSelectedDay={onChangeSelectedDay}
+                    />
+                  )
+                })}
+              </YearWrapper>
+            )
+          })}
+        </Front>
+        <Right/>
+        <Bottom/>
       </Body>
     </Wrapper>
   );
@@ -106,9 +117,10 @@ const Inputs = styled.div`
 `;
 
 const Body = styled.div`
+  background-color: #fff;
   border: 1px solid #dedede;
   border-radius: 10px;
-  padding: 10px 0;
+
 
   box-shadow: -20px 40px 15px rgb(0 0 0 / 10%);
 
@@ -117,8 +129,52 @@ const Body = styled.div`
 
   &:hover {
     transform: rotateY(${({degreeY}) => degreeY}deg) rotateX(${({degreeX}) => degreeX}deg);
-      //transform: rotate3d(${({degreeX}) => degreeX / 360}, ${({degreeY}) => degreeY / 360}, 0, 10deg);
   }
+`;
+
+const Front = styled.div`
+  padding: 10px 0;
+`;
+
+const Top = styled.div`
+  transform: rotateX(270deg) translateY(50px);
+  transform-origin: center left;
+  width: 100%;
+  height: 100px;
+  background-color: #dedede;
+  position: absolute;
+  top: -50px;
+`;
+
+const Bottom = styled.div`
+  transform: rotateX(90deg) translateY(-50px);
+  transform-origin: center left;
+  width: 100%;
+  height: 100px;
+  background-color: #dedede;
+  position: absolute;
+  bottom: -50px;
+
+`;
+
+const Left = styled.div`
+  transform: rotateY(270deg) translateX(-100px);
+  transform-origin: center left;
+  width: 100px;
+  height: 100%;
+  background-color: #dedede;
+  position: absolute;
+`;
+
+const Right = styled.div`
+  transform: rotateY(90deg) translateX(0px);
+  transform-origin: center left;
+  width: 100px;
+  height: 100%;
+  background-color: #dedede;
+  position: absolute;
+  top: 0;
+  left: 100%;
 `;
 
 const YearWrapper = styled.div`
