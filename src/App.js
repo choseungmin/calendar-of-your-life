@@ -6,6 +6,7 @@ function App() {
     <Wrapper>
       <Title>CALENDAR OF YOUR LIFE</Title>
       <CalendarWrapper/>
+      <div style={{textAlign: "center"}}>Idea From <a href="https://www.youtube.com/watch?v=JXeJANDKwDc&ab_channel=Kurzgesagt%E2%80%93InaNutshell">Kurzgesagt</a></div>
     </Wrapper>
   );
 }
