@@ -1,0 +1,18 @@
+Index: src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import styled from \"styled-components\";\nimport CalendarWrapper from \"./components/CalendarWrapper\";\n\nfunction App() {\n  return (\n    <Wrapper>\n      <Title>CALENDAR OF YOUR LIFE</Title>\n      <CalendarWrapper/>\n    </Wrapper>\n  );\n}\n\nexport default App;\n\nconst Wrapper = styled.div`\n  max-width: 1200px;\n  margin: 0 auto;\n`;\n\nconst Title = styled.h1`\n  text-align: center;\n  font-size: 62px;\n  font-weight: bold;\n  margin: 0;\n`;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/App.js b/src/App.js
+--- a/src/App.js	(revision 1d2fa571bec895b15ca76b705369b748898a33e8)
++++ b/src/App.js	(date 1659859521771)
+@@ -6,6 +6,7 @@
+     <Wrapper>
+       <Title>CALENDAR OF YOUR LIFE</Title>
+       <CalendarWrapper/>
++      <div style={{textAlign: "center"}}>Idea From <a href="https://www.youtube.com/watch?v=JXeJANDKwDc&ab_channel=Kurzgesagt%E2%80%93InaNutshell">Kurzgesagt</a></div>
+     </Wrapper>
+   );
+ }
